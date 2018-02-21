@@ -1,0 +1,52 @@
+
+.Auth__container {
+    width: 50%;
+    height: 100vh;
+    min-height: 850px;
+    min-width: 850px;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+        flex-direction: column;
+    -ms-flex-pack: center;
+        justify-content: center;
+    -ms-flex-align: center;
+        align-items: center;
+  }
+  
+  .Auth__logo {
+    margin-bottom: 50px;
+  }
+  
+  .Auth__input_header {
+    font-size: 20px;
+    margin-bottom: 3px;
+    position: relative;
+    left: -27%;
+  }
+  
+  .Auth__input {
+    font-size: 25px;
+    width: 70%;
+    margin-bottom: 25px;
+  }
+  
+  .Auth__button_login {
+    color: black;
+    border: none;
+    width: 130px;
+    height: 40px;
+    font-size: 14px;
+    margin-right: 30px;
+    cursor: pointer;
+  }
+  
+  .Auth__button_register {
+    color: white;
+    border: none;
+    width: 130px;
+    height: 40px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+

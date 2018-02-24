@@ -97,6 +97,8 @@ app.get(`${authUrl}/login/`, passport.authenticate('auth0', {
     failureFlash: true
 }));
 
+//TEST for GITHUB
+
 app.get(`${authUrl}/setUser/`, passport.authenticate('auth0'), (req, res) => {
     console.log("SETUSER ENDPOINT")
     //res.status(200).send(JSON.stringify(req.user, null, 10));

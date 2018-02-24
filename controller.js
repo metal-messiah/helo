@@ -11,55 +11,154 @@
 //     rent INTEGER
 
 module.exports = {
-    create: (req, res) => {
+    listFriends: (req, res) => {
         let dbInstance = req.app.get('db');
-        let {name, description, address, city, state, zip, image, loanamt, monthly, rent} = req.body;
-        // catch empty vals
-        name = name || "";
-        description = description || "";
-        address = address || "";
-        city = city || "";
-        state = state || "";
-        zip = zip || "";
-        image = image || "";
-        loanamt = loanamt || 0;
-        monthly = monthly || 0;
-        rent = rent || 0;
 
-        const {user} = req.session;
-        const userid = req.sessionID;
-        dbInstance.create_property([name, description, address, city, state, zip, image, loanamt, monthly, rent, userid]).then(() => {
-            dbInstance.read_properties([userid]).then(props => {
-                res.status(200).send(props.map(property => property));
-            });
+        const {
+            id
+        } = req.user;
+        dbInstance.list_friends([id]).then((friends) => {
+            res.status(200).send(JSON.parse(friends))
         }).catch(err => res.status(500).send(err))
     },
-    read: (req, res) => {
+    addFriends: (req, res) => {
         let dbInstance = req.app.get('db');
-        //const {user} = req.session;
-        const userid = req.sessionID;
-        const rent = req.query.rent;
-        if (!req.query.rent) {
-            dbInstance.read_properties([userid]).then(props => {
-                res.status(200).send(props.map(property => property));
-            });
-        }
-        else {
-            dbInstance.read_properties([userid, rent]).then(props => {
-                res.status(200).send(props.map(property => property));
-            });
-        }
-    },
-    delete: (req, res) => {
-        let dbInstance = req.app.get('db');
-        //const {user} = req.session;
-        const deleteID = req.params.id;
-        const userid = req.sessionID;
 
-        dbInstance.delete_property([deleteID, userid]).then((props) => {
-            dbInstance.read_properties([userid]).then(props => {
-                res.status(200).send(props.map(property => property));
-            });
-        }).catch(err => res.status(500).send(err));
+        var {
+            friendID
+        } = req;
+        const {
+            id
+        } = req.user;
+        dbInstance.list_friends([id]).then((friends) => {
+            var friendsArr = JSON.parse(friends);
+            friendsArr.push(friendID)
+            dbInstance.update_friends([friendsArr, id]).then(() => {
+                res.status(200).send(friendsArr)
+            }).catch(err => res.status(500).send(err))
+        }).catch(err => res.status(500).send(err))
+    },
+    removeFriends: (req, res) => {
+        let dbInstance = req.app.get('db');
+
+        var {
+            friendID
+        } = req;
+        const {
+            id
+        } = req.user;
+        dbInstance.list_friends([id]).then((friends) => {
+            var friendsArr = JSON.parse(friends);
+            var i = friendsArr.findIndex((friend) => friend == friendID);
+            friendsArr.splice(i, 1);
+            dbInstance.update_friends([friendsArr, id]).then(() => {
+                res.status(200).send(friendsArr)
+            }).catch(err => res.status(500).send(err))
+        }).catch(err => res.status(500).send(err))
+    },
+    updateUser: (req, res) => {
+        let dbInstance = req.app.get('db');
+        const {
+            id
+        } = req.user;
+
+        const {
+            firstname,
+            lastname,
+            gender,
+            haircolor,
+            eyecolor,
+            hobby,
+            birthday,
+            birthmonth,
+            birthyear,
+            picture
+        } = req;
+
+        dbInstance.update_user([id, firstname, lastname, gender, haircolor, eyecolor, hobby, birthday, birthmonth, birthyear, picture]).then(() => {
+            dbInstance.find_user([id]).then(user => {
+                res.status(200).send(user)
+            }).catch(err => res.status(500).send(err))
+        }).catch(err => res.status(500).send(err))
+    },
+    listUsers: (req, res) => {
+        let dbInstance = req.app.get('db');
+        const {
+            id
+        } = req.user;
+        //console.log(id)
+
+        let pageID = req.query.page || 1;
+        //console.log(pageID)
+        var offset = (pageID * 24) - 24;
+        //console.log(offset)
+
+        let output = {};
+        dbInstance.count_users([id]).then(count => {
+            // console.log()
+            output.count = Number(count[0].count);
+            output.pages = Math.ceil(output.count / 24);
+            // console.log(output)
+            dbInstance.list_users([id, offset]).then(users => {
+                output.users = users;
+                // console.log(output)
+                res.status(200).send(output)
+            }).catch(err => res.status(500).send(err))
+        })
+
+    },
+    searchUsers: (req, res) => {
+        var {
+            page
+        } = req.params;
+        let dbInstance = req.app.get('db');
+        var {
+            type,
+            name
+        } = req.query;
+        var offset = (page * 24) - 24;
+        dbInstance.search_users([type, name, offset]).then(users => {
+            res.status(200).send(users)
+        }).catch(err => res.status(500).send(err))
+
+    },
+    listRecommended: (req, res) => {
+        const {
+            id
+        } = req.user;
+        let dbInstance = req.app.get('db');
+        var type = req.params.type;
+
+        dbInstance.find_user([id]).then(user => {
+            dbInstance.search_recommended([id, type, user[type]]).then(users => {
+                res.status(200).send(users)
+            }).catch(err => res.status(500).send(err))
+
+        })
+
+
+    },
+    addRecommended: (req, res) => {
+        let dbInstance = req.app.get('db');
+
+        var {
+            friendID
+        } = req;
+        const {
+            id
+        } = req.user;
+        dbInstance.list_friends([id]).then((friends) => {
+            var friendsArr = JSON.parse(friends);
+            friendsArr.push(friendID)
+            dbInstance.update_friends([friendsArr, id]).then(() => {
+                // res.status(200).send(friendsArr)
+                dbInstance.find_user([id]).then(user => {
+                    dbInstance.search_recommended([id, type, user[type]]).then(users => {
+                        res.status(200).send(users)
+                    }).catch(err => res.status(500).send(err))
+        
+                })
+            }).catch(err => res.status(500).send(err))
+        }).catch(err => res.status(500).send(err))
     }
 };

@@ -1,0 +1,1 @@
+UPDATE users SET friends = $1 WHERE id = $2;

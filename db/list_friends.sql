@@ -1,0 +1,1 @@
+SELECT friends FROM users WHERE id = $1;

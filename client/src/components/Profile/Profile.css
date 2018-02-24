@@ -8,35 +8,55 @@ body{
   justify-content: center;
 }
 
-.profile-wrapper{
+.profile-info{
   display:flex;
   align-items:center;
-  justify-content:left;
+  justify-content:space-between;
   box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px 0 rgba(0,0,0,0.2);
   border-radius: 2px;
   background: #ffffff;
   padding: 10px;
   height:125px;
-  width:300px;
+  width:810px;
+}
+
+.profile-box{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
 }
 
 .profile-image{
-  width:123px !important;
+  width:123px;
+  height:123px;
   border: 2px solid orange;
   margin-right: 10px;
 }
 
-.profile-d-wrapper{
-  width: 123px;
+.profile-details-wrapper{
+  width: 300px;
   text-align: center;
-  margin: 0px 15px;
+  margin: 0px 10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
-.edit-profile{
+.update-button, .cancel-button{
   border-radius: 1px;
   background-image: radial-gradient(circle at 50% 0, #ffffff, #f1eceb);
   border: solid 1px #ccc3c3;
   color: black;
   padding:10px 0;
+  width: 100px;
+  margin: 10px;
+}
+
+.update-button{
+  background-image: radial-gradient(circle at 50% -46%, #737373, #493d39);
+  
+}
+.update-button a{
+  color:white !important;
 }
 
 .profile-name{
@@ -104,4 +124,32 @@ a, a:hover, a:visited{
 
 select, options{
   padding:5px
+}
+
+.profile-fields-wrapper{
+ 
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px 0 rgba(0,0,0,0.2);
+  border-radius: 2px;
+  background: #ffffff;
+  padding: 10px;
+  width:810px;
+  margin: 0 auto;
+  margin-top: 20px;
+  text-align:center;
+}
+
+.input-box {
+  display: inline-block;
+  width: 40%;
+}
+
+.input-box input,.input-box select{
+  width:80%;
+  padding:10px;
+  font-size:large;
+  margin: 10px 0px;
+}
+
+.o-bounds{
+  border: 1px solid orange;
 }

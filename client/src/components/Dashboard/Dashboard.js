@@ -1,26 +1,66 @@
 import React, { Component } from 'react';
 import Navbar from "../Navbar/Navbar";
-import Filter from "./Filter/Filter";
-import PropertyList from "./PropertyList/PropertyList";
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './Dashboard.css';
+
+import axios from "axios";
 
 export default class Dashboard extends Component {
 
+  componentDidMount(){
+    axios.get("/api/auth/authenticated/#")
+      .then((r)=>{
+        console.log(r);
+      })
+  }
+
   render() {
     return (
-      <div id="root">
+      <div className="main-wrapper">
         <Navbar />
-        <div class="Dashboard_container">
-        <Link to="/wizard/1"><button class="Dashboard_button_new lightest_green_bgc open-sans-bold">Add new property</button></Link>
-        <Filter />
-        <div class="Dashboard_homeSpan_container"><span class="open-sans-bold"> Home Listings </span></div>
-        <div>
-            <PropertyList />
+        <div className="dashboard-wrapper">
+
+          <div className="profile-wrapper">
+            <img className="profile-image" src="https://robohash.org/me" />
+            <div className="profile-d-wrapper">
+              <div className="profile-name">Name</div>
+              <br />
+              <div className="edit-profile">
+                <Link to="/profile">Edit Profile</Link>
+              </div>
+            </div>
+          </div>
+          <div className="description-wrapper">
+            Welcome to Helo! Find recommended friends based on your similarities, and even search for them by name. The more you update your profile, the better recommendations we can make!
+          </div>
+
+
+
         </div>
+        <div className="friends-wrapper">
+
+          <div className="friends-container">
+            <div className="friends-header">
+
+              <div className="friends-title">Recommended Friends</div>
+              <div className="friends-sort">Sorted by <select>
+
+                <option value="firstname">First Name</option>
+                <option value="lastname">Last Name</option>
+                <option value="gender">Gender</option>
+                <option value="hobby">Hobby</option>
+                <option value="hair">Hair</option>
+                <option value="eye">Eye</option>
+                <option value="birthday">Birthday</option>
 
 
-        </div>        
+              </select></div>
+            </div>
+
+            <div className="friends-content"><span>No Recommendations</span></div>
+
+          </div>
+        </div>
       </div>
     );
   }

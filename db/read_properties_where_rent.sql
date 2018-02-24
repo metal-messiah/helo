@@ -1,1 +1,0 @@
-SELECT * FROM properties WHERE userid = $1 AND rent > $2;

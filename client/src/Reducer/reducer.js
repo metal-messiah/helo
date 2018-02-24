@@ -1,166 +1,145 @@
 const initalState = {
-    username: "",
-    password: "",
-    desiredRent: "",
-    filter: 0,
-    propertyName: "",
-    propertyDescription: "",
-    address: "",
-    city: "",
-    ST: "",
-    zip: "",
-    imageURL: "",
-    loanAmount: "",
-    monthlyMortgage: ""
+
+    firstname: "",
+    lastname:"",
+    gender:"",
+    hairColor:"",
+    eyeColor:"",
+    hobby:"",
+    birthDay: "",
+    birthMonth: "",
+    birthYear: "",
+    id: "",
+    picture:"",
+    friends:[]
+
 }
 
-const UPDATE_USERNAME = "UPDATE_USERNAME";
-const UPDATE_PASSWORD = "UPDATE_PASSWORD";
-const UPDATE_DESIRED_RENT = "UPDATE_DESIRED_RENT";
-const RESET_FILTER = "RESET_FILTER";
-const UPDATE_PROPERTY_NAME = "UPDATE_PROPERTY_NAME";
-const UPDATE_PROPERTY_DESCRIPTION = "UPDATE_PROPERTY_DESCRIPTION";
-const UPDATE_ADDRESS = "UPDATE_ADDRESS";
-const UPDATE_CITY = "UPDATE_CITY";
-const UPDATE_STATE = "UPDATE_STATE";
-const UPDATE_ZIP = "UPDATE_ZIP";
-const UPDATE_IMAGE_URL = "UPDATE_IMAGE_URL";
-const UPDATE_LOAN_AMOUNT = "UPDATE_LOAN_AMOUNT";
-const UPDATE_MONTHLY_MORTGAGE = "UPDATE_MONTHLY_MORTGAGE";
+const UPDATE_FIRSTNAME = "UPDATE_FIRSTNAME";
+const UPDATE_LASTNAME = "UPDATE_LASTNAME";
+const UPDATE_GENDER = "UPDATE_GENDER";
+const UPDATE_EYECOLOR = "UPDATE_EYECOLOR";
+const UPDATE_HAIRCOLOR = "UPDATE_HAIRCOLOR";
+const UPDATE_HOBBY = "UPDATE_HOBBY";
+const UPDATE_BIRTHDAY = "UPDATE_BIRTHDAY";
+const UPDATE_BIRTHMONTH = "UPDATE_BIRTHMONTH";
+const UPDATE_BIRTHYEAR = "UPDATE_BIRTHYEAR";
+const UPDATE_PICTURE = "UPDATE_PICTURE";
+const UPDATE_FRIENDS = "UPDATE_FRIENDS";
 
 function reducer(state = initalState, action){
     switch(action.type){
-        case UPDATE_USERNAME:
-            return Object.assign({}, state, {username: action.payload});
+        case UPDATE_FIRSTNAME:
+            return Object.assign({}, state, {firstname: action.payload});
 
-        case UPDATE_PASSWORD:
-            return Object.assign({}, state, {password: action.payload});
+        case UPDATE_LASTNAME:
+            return Object.assign({}, state, {lastname: action.payload});
 
-        case UPDATE_DESIRED_RENT:
-            return Object.assign({}, state, {desiredRent: action.payload});
+        case UPDATE_GENDER:
+            return Object.assign({}, state, {gender: action.payload});
 
-        case RESET_FILTER:
-            return Object.assign({}, state, {filter: action.payload});
+        case UPDATE_EYECOLOR:
+            return Object.assign({}, state, {eyeColor: action.payload});
 
-        case UPDATE_PROPERTY_NAME:
-            return Object.assign({}, state, {propertyName: action.payload});
+        case UPDATE_HAIRCOLOR:
+            return Object.assign({}, state, {hairColor: action.payload});
 
-        case UPDATE_PROPERTY_DESCRIPTION:
-            return Object.assign({}, state, {propertyDescription: action.payload});
+        case UPDATE_HOBBY:
+            return Object.assign({}, state, {hobby: action.payload});
 
-        case UPDATE_ADDRESS:
-            return Object.assign({}, state, {address: action.payload});
+        case UPDATE_BIRTHDAY:
+            return Object.assign({}, state, {birthDay: action.payload});
 
-        case UPDATE_CITY:
-            return Object.assign({}, state, {city: action.payload});
+        case UPDATE_BIRTHMONTH:
+            return Object.assign({}, state, {birthMonth: action.payload});
 
-        case UPDATE_STATE:
-            return Object.assign({}, state, {ST: action.payload});
+        case UPDATE_BIRTHYEAR:
+            return Object.assign({}, state, {birthYear: action.payload});
 
-        case UPDATE_ZIP:
-            return Object.assign({}, state, {zip: action.payload});
+        case UPDATE_PICTURE:
+            return Object.assign({}, state, {picture: action.payload});
 
-        case UPDATE_IMAGE_URL:
-            return Object.assign({}, state, {imageURL: action.payload});
-
-        case UPDATE_LOAN_AMOUNT:
-            return Object.assign({}, state, {loanAmount: action.payload});
-
-        case UPDATE_MONTHLY_MORTGAGE:
-            return Object.assign({}, state, {monthlyMortgage: action.payload});
+        case UPDATE_FRIENDS:
+        return Object.assign({}, state, {friends: action.payload});
 
         default: return state;
     }
 }
 
-export function updateUsername (username) {
+export function updateFirstname (firstname) {
     return {
-        type: UPDATE_USERNAME,
-        payload: username
+        type: UPDATE_FIRSTNAME,
+        payload: firstname
     }
 }
 
-export function updatePassword (password) {
+export function updatePassword (lastname) {
     return {
-        type: UPDATE_PASSWORD,
-        payload: password
+        type: UPDATE_LASTNAME,
+        payload: lastname
     }
 }
 
-export function updateDesiredRent (desiredRent) {
+export function updateGender (gender) {
     return {
-        type: UPDATE_DESIRED_RENT,
-        payload: desiredRent
+        type: UPDATE_GENDER,
+        payload: gender
     }
 }
 
-export function resetFilter () {
+export function updateEyeColor (eyeColor) {
     return {
-        type: RESET_FILTER,
-        payload: 0
+        type: UPDATE_EYECOLOR,
+        payload: eyeColor
     }
 }
 
-export function updatePropertyName (propertyName) {
+export function updateHairColor (hairColor) {
     return {
-        type: UPDATE_PROPERTY_NAME,
-        payload: propertyName
+        type: UPDATE_HAIRCOLOR,
+        payload: hairColor
     }
 }
 
-export function updatePropertyDescription (propertyDescription) {
+export function updateHobby (hobby) {
     return {
-        type: UPDATE_PROPERTY_DESCRIPTION,
-        payload: propertyDescription
+        type: UPDATE_HOBBY,
+        payload: hobby
     }
 }
 
-export function updateAddress (address) {
+export function updateBirthDay (birthDay) {
     return {
-        type: UPDATE_ADDRESS,
-        payload: address
+        type: UPDATE_BIRTHDAY,
+        payload: birthDay
     }
 }
 
-export function updateCity (city) {
+export function updateBirthMonth (birthMonth) {
     return {
-        type: UPDATE_CITY,
-        payload: city
+        type: UPDATE_BIRTHMONTH,
+        payload: birthMonth
     }
 }
 
-export function updateState (ST) {
+export function updateBirthYear (birthYear) {
     return {
-        type: UPDATE_STATE,
-        payload: ST
+        type: UPDATE_BIRTHYEAR,
+        payload: birthYear
     }
 }
 
-export function updateZip (zip) {
+export function updatePicture (picture) {
     return {
-        type: UPDATE_ZIP,
-        payload: zip
+        type: UPDATE_PICTURE,
+        payload: picture
     }
 }
 
-export function updateImageURL (imageURL) {
+export function updateFriends (friends) {
     return {
-        type: UPDATE_IMAGE_URL,
-        payload: imageURL
-    }
-}
-
-export function updateLoanAmount (loanAmount) {
-    return {
-        type: UPDATE_LOAN_AMOUNT,
-        payload: loanAmount
-    }
-}
-
-export function updateMonthlyMortgage (monthlyMortgage) {
-    return {
-        type: UPDATE_MONTHLY_MORTGAGE,
-        payload: monthlyMortgage
+        type: UPDATE_FRIENDS,
+        payload: friends
     }
 }
 

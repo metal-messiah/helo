@@ -14,7 +14,8 @@ const config = require(`${__dirname}/config.js`);
 const {
     domain,
     clientID,
-    clientSecret
+    clientSecret,
+    db
 } = config;
 
 //require('dotenv').config()
@@ -27,7 +28,7 @@ app.use(cors());
 
 
 //users 
-massive("postgres://qtsfzuurclzgcr:a8f2fe8717e00e1983e95c82fadb389cc7ece9a4f6d13c97634184322412795c@ec2-184-72-219-186.compute-1.amazonaws.com:5432/d5shi0ki18lf3s?ssl=true")
+massive(db)
     .then(dbInstance => app.set('db', dbInstance));
 
 app.use(express.static(`${__dirname}/client/build`));
@@ -91,9 +92,11 @@ const friendUrl = "/api/friend";
 const userUrl = "/api/user";
 const recommendedUrl = "/api/recommended";
 
-app.get(`${authUrl}/login`, (req,res)=>{
-    console.log("login");
-});
+app.get(`${authUrl}/login/`, passport.authenticate('auth0', {
+    successRedirect: `${authUrl}/setUser/`,
+    failureRedirect: `${authUrl}/login/`,
+    failureFlash: true
+}));
 
 app.get(`${authUrl}/setUser/`, passport.authenticate('auth0'), (req, res) => {
     console.log("SETUSER ENDPOINT")

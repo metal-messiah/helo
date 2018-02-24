@@ -78,7 +78,6 @@ passport.deserializeUser((user, done) => {
             dbInstance.create_user([id, first, last, 'https://robohash.org/me']).then((r) => {
                 console.log("added new user to DB")
                 dbInstance.find_user([id]).then((newMatch) => {
-
                     done(null, newMatch[0])
                 })
             })
